@@ -9,13 +9,13 @@ app=application
 def index():
     return render_template("index.html")
 
-@app.route("/predictdata", methods = ["GET", "POST"])
+@app.route("/predict", methods = ["GET", "POST"])
 def predict_datapoint():
     if request.method == "GET":
         return render_template("predict.html")
     elif request.method == "POST":
         data = CardioData(
-            age=int(request.form.get('age')),
+            age=int(request.form.get('age')) * 365,
             gender=request.form.get('gender'),
             height=float(request.form.get('height')),
             weight=float(request.form.get('weight')),

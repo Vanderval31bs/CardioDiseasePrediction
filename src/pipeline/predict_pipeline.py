@@ -2,7 +2,7 @@ import sys
 import os
 import pandas as pd
 
-from src.exception import CardioPredicitonException
+from src.exception import CardioPredictionException
 from src.utils import load_object
 
 class PredictPipeline:
@@ -24,13 +24,13 @@ class PredictPipeline:
             return preds
         
         except Exception as e:
-            raise CardioPredicitonException(e, sys)
+            raise CardioPredictionException(e, sys)
 
 
 class CardioData:
     def __init__(self,
-                 age: int,
-                 gender: str,
+                 age: int, # in days
+                 gender: int,
                  height: float,
                  weight: float,
                  ap_hi: float,
@@ -72,4 +72,4 @@ class CardioData:
             df = pd.DataFrame(data)
             return df
         except Exception as e:
-            raise CardioPredicitonException(e, sys)
+            raise CardioPredictionException(e, sys)

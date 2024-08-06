@@ -6,7 +6,7 @@ from xgboost import XGBClassifier
 
 from sklearn.metrics import accuracy_score
 
-from src.exception import CardioPredicitonException
+from src.exception import CardioPredictionException
 from src.logger import logging
 from src.utils import save_object
 
@@ -41,7 +41,7 @@ class ModelTrainer:
             logging.info("Achieved {train_score} accuracy on train data")            
 
             if (train_score < 0.6):
-                raise CardioPredicitonException("No best model found", sys)
+                raise CardioPredictionException("No best model found", sys)
             logging.info(f"Best found model on both training and testing dataset")     
 
             save_object(
@@ -57,4 +57,4 @@ class ModelTrainer:
 
 
         except Exception as  e:
-            raise CardioPredicitonException(e, sys)
+            raise CardioPredictionException(e, sys)

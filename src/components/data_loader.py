@@ -1,6 +1,6 @@
 import os
 import sys
-from src.exception import CardioPredicitonException
+from src.exception import CardioPredictionException
 from src.logger import logging
 import pandas as pd
 
@@ -42,14 +42,14 @@ class DataLoader:
                 self.loading_config.test_data_path,
             )
         except Exception as e:
-            raise CardioPredicitonException(e, sys)
+            raise CardioPredictionException(e, sys)
 
 if __name__=="__main__":
     obj = DataLoader()
     train_data, test_data = obj.initiate_data_loading()
 
-    data_transformation = DataPreprocessing()
-    train_arr, test_arr,_ = data_transformation.initiate_data_preprocessing(train_data, test_data)
+    data_preprocessing = DataPreprocessing()
+    train_arr, test_arr,_ = data_preprocessing.initiate_data_preprocessing(train_data, test_data)
 
     model_trainer = ModelTrainer()
     print(model_trainer.initiate_model_trainer(train_arr, test_arr))

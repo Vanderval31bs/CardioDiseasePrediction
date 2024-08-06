@@ -9,7 +9,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer, OneHotEncoder, StandardScaler
 
-from src.exception import CardioPredicitonException
+from src.exception import CardioPredictionException
 from src.logger import logging
 from src.utils import save_object
 
@@ -20,10 +20,12 @@ class DataPreprocessingConfig:
 
 class DataPreprocessing:
     def __init__(self):
-        self.data_transformation_config = DataPreprocessingConfig()
+        self.data_preprocessing_config = DataPreprocessingConfig()
 
     def drop_id_column(self, input_df):
-        return input_df.drop(columns=['id'])
+        if 'id' in input_df.columns:
+            return input_df.drop(columns=['id'])
+        return input_df
     
     def convert_gender_to_0_and_1(self, input_df):
         input_df['gender'] = input_df['gender'].replace({1: 0, 2: 1})
@@ -46,7 +48,7 @@ class DataPreprocessing:
         df4 = self.convert_age_to_years(df3)
         return df4
     
-    def get_data_transformer_object(self):
+    def get_data_preprocessing_object(self):
         try:
             custom_pipeline = Pipeline(
                 steps=[
@@ -93,7 +95,7 @@ class DataPreprocessing:
 
             return preprocessor
         except Exception as e:
-            raise CardioPredicitonException(e, sys)
+            raise CardioPredictionException(e, sys)
         
     def initiate_data_preprocessing(self, train_path, test_path):
         try:
@@ -113,7 +115,7 @@ class DataPreprocessing:
 
             logging.info(f"Applying preprocessing on training and testing dataframe")
 
-            preprocessing_obj = self.get_data_transformer_object()
+            preprocessing_obj = self.get_data_preprocessing_object()
 
             input_feature_train_array = preprocessing_obj.fit_transform(input_feature_train_df)
             input_feature_test_array = preprocessing_obj.transform(input_feature_test_df)
@@ -124,15 +126,15 @@ class DataPreprocessing:
             logging.info("Saved preprocessing object.")
 
             save_object(
-                file_path=self.data_transformation_config.preprocessor_obj_file_path,
+                file_path=self.data_preprocessing_config.preprocessor_obj_file_path,
                 obj=preprocessing_obj
             )
 
             return (
                 train_arr,
                 test_arr,
-                self.data_transformation_config.preprocessor_obj_file_path,                
+                self.data_preprocessing_config.preprocessor_obj_file_path,                
             )
             
         except Exception as e:
-            raise CardioPredicitonException(e, sys)    
+            raise CardioPredictionException(e, sys)    
