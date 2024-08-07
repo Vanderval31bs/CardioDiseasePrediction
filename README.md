@@ -56,15 +56,12 @@ To run the project locally, follow these steps:
 
 ## Results
 
-The model achieved an accuracy of 0.73 on the test set, indicating that it correctly predicted 73% of the instances in the test data. This performance metric reflects the model's ability to classify the presence or absence of cardiovascular disease based on the provided features.
+Utilizing a grid search with cross-validation, the chosen model was XGBoost with the following parameters:
+- `n_estimators = 300`
+- `learning_rate = 0.05`
+- `max_depth = 4`
 
-- **Contextual Interpretation**: Depending on the domain, a 73% accuracy may be adequate or require further improvement. For example, in medical diagnostics, higher accuracy may be necessary due to the critical nature of decision-making.
-
-- **Next Steps**: To improve the model's performance, consider:
-  - **Feature Engineering**: Refining existing features or creating new ones.
-  - **Model Tuning**: Further optimizing hyperparameters.
-
-In conclusion, while achieving 73% accuracy is a positive indication of the model's capability, continuous refinement and evaluation are crucial to enhance its predictive accuracy and reliability in practical applications.
+The model achieved an accuracy of 0.73 on the test set, that is, it correctly predicted 73% of the instances.
 
 ## Conclusions
 
