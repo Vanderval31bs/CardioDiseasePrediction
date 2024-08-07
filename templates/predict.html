@@ -4,98 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cardiovascular Disease Prediction</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
-        <h1 class="my-4">Cardiovascular Disease Prediction</h1>
+<body class="bg-gray-100">
+    <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
+        <h1 class="text-3xl font-bold mb-6 text-center">Cardiovascular Disease Prediction</h1>
 
         <form action="{{ url_for('predict_datapoint') }}" method="post">
-            <legend>Patient Information</legend>
-            <div class="form-group">
-                <label for="age">Age</label>
-                <input class="form-control" type="number" name="age" id="age" placeholder="Enter your Age" required min="0">
+            <legend class="text-xl font-semibold mb-4">Patient Information</legend>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="mb-4">
+                    <label for="age" class="block text-sm font-medium text-gray-700">Age</label>
+                    <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2" type="number" name="age" id="age" placeholder="Enter your Age" required min="0">
+                </div>
+                <div class="mb-4">
+                    <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+                    <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2" name="gender" id="gender" required>
+                        <option selected disabled value="">Select your Gender</option>
+                        <option value="2">Male</option>
+                        <option value="1">Female</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="height" class="block text-sm font-medium text-gray-700">Height (in cm)</label>
+                    <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2" type="number" name="height" id="height" placeholder="Enter your Height" required min="0">
+                </div>
+                <div class="mb-4">
+                    <label for="weight" class="block text-sm font-medium text-gray-700">Weight (in kg)</label>
+                    <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2" type="number" name="weight" id="weight" placeholder="Enter your Weight" required min="0">
+                </div>
+                <div class="mb-4">
+                    <label for="ap_hi" class="block text-sm font-medium text-gray-700">Systolic Blood Pressure (ap_hi)</label>
+                    <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2" type="number" name="ap_hi" id="ap_hi" placeholder="Enter Systolic Blood Pressure" required min="0">
+                </div>
+                <div class="mb-4">
+                    <label for="ap_lo" class="block text-sm font-medium text-gray-700">Diastolic Blood Pressure (ap_lo)</label>
+                    <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2" type="number" name="ap_lo" id="ap_lo" placeholder="Enter Diastolic Blood Pressure" required min="0">
+                </div>
+                <div class="mb-4">
+                    <label for="cholesterol" class="block text-sm font-medium text-gray-700">Cholesterol Level</label>
+                    <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2" name="cholesterol" id="cholesterol" required>
+                        <option selected disabled value="">Select Cholesterol Level</option>
+                        <option value="normal">Normal</option>
+                        <option value="above_normal">Above Normal</option>
+                        <option value="well_above_normal">Well Above Normal</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="gluc" class="block text-sm font-medium text-gray-700">Glucose Level</label>
+                    <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2" name="gluc" id="gluc" required>
+                        <option selected disabled value="">Select Glucose Level</option>
+                        <option value="normal">Normal</option>
+                        <option value="above_normal">Above Normal</option>
+                        <option value="well_above_normal">Well Above Normal</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="smoke" class="block text-sm font-medium text-gray-700">Smoking Habit</label>
+                    <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2" name="smoke" id="smoke" required>
+                        <option selected disabled value="">Select Smoking Habit</option>
+                        <option value="0">Non-Smoker</option>
+                        <option value="1">Smoker</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="alco" class="block text-sm font-medium text-gray-700">Alcohol Intake</label>
+                    <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2" name="alco" id="alco" required>
+                        <option selected disabled value="">Select Alcohol Intake</option>
+                        <option value="0">Non-Drinker</option>
+                        <option value="1">Drinker</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="active" class="block text-sm font-medium text-gray-700">Physical Activity</label>
+                    <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2" name="active" id="active" required>
+                        <option selected disabled value="">Select Physical Activity</option>
+                        <option value="0">Inactive</option>
+                        <option value="1">Active</option>
+                    </select>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="gender">Gender</label>
-                <select class="form-control" name="gender" id="gender" required>
-                    <option selected disabled value="">Select your Gender</option>
-                    <option value="2">Male</option>
-                    <option value="1">Female</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="height">Height (in cm)</label>
-                <input class="form-control" type="number" name="height" id="height" placeholder="Enter your Height" required min="0">
-            </div>
-            <div class="form-group">
-                <label for="weight">Weight (in kg)</label>
-                <input class="form-control" type="number" name="weight" id="weight" placeholder="Enter your Weight" required min="0">
-            </div>
-            <div class="form-group">
-                <label for="ap_hi">Systolic Blood Pressure (ap_hi)</label>
-                <input class="form-control" type="number" name="ap_hi" id="ap_hi" placeholder="Enter Systolic Blood Pressure" required min="0">
-            </div>
-            <div class="form-group">
-                <label for="ap_lo">Diastolic Blood Pressure (ap_lo)</label>
-                <input class="form-control" type="number" name="ap_lo" id="ap_lo" placeholder="Enter Diastolic Blood Pressure" required min="0">
-            </div>
-            <div class="form-group">
-                <label for="cholesterol">Cholesterol Level</label>
-                <select class="form-control" name="cholesterol" id="cholesterol" required>
-                    <option selected disabled value="">Select Cholesterol Level</option>
-                    <option value="normal">Normal</option>
-                    <option value="above_normal">Above Normal</option>
-                    <option value="well_above_normal">Well Above Normal</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="gluc">Glucose Level</label>
-                <select class="form-control" name="gluc" id="gluc" required>
-                    <option selected disabled value="">Select Glucose Level</option>
-                    <option value="normal">Normal</option>
-                    <option value="above_normal">Above Normal</option>
-                    <option value="well_above_normal">Well Above Normal</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="smoke">Smoking Habit</label>
-                <select class="form-control" name="smoke" id="smoke" required>
-                    <option selected disabled value="">Select Smoking Habit</option>
-                    <option value="0">Non-Smoker</option>
-                    <option value="1">Smoker</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="alco">Alcohol Intake</label>
-                <select class="form-control" name="alco" id="alco" required>
-                    <option selected disabled value="">Select Alcohol Intake</option>
-                    <option value="0">Non-Drinker</option>
-                    <option value="1">Drinker</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="active">Physical Activity</label>
-                <select class="form-control" name="active" id="active" required>
-                    <option selected disabled value="">Select Physical Activity</option>
-                    <option value="0">Inactive</option>
-                    <option value="1">Active</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Predict Cardiovascular Disease</button>
+            <button type="submit" class="w-full bg-blue-500 text-white py-3 px-4 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6">Predict Cardiovascular Disease</button>
         </form>
         
-        {% if results is not none %}
-            {% if results == 1 %}
-                <h2 class="my-4">Prediction Result: Cardiovascular Disease Likely</h2>
-            {% elif results == 0 %}
-                <h2 class="my-4">Prediction Result: Cardiovascular Disease Unlikely</h2>
-            {% else %}
-                <h2 class="my-4">Prediction Result: Invalid</h2>
-            {% endif %}
+        {% if results == 1 or results == 0 %}
+            <div class="mt-6">
+                {% if results == 1 %}
+                    <h2 class="text-xl font-semibold text-red-600">Prediction Result: Cardiovascular Disease Likely</h2>
+                {% elif results == 0 %}
+                    <h2 class="text-xl font-semibold text-green-600">Prediction Result: Cardiovascular Disease Unlikely</h2>
+                {% else %}
+                    <h2 class="text-xl font-semibold text-gray-600">Prediction Result: </h2>
+                {% endif %}
+            </div>
         {% else %}
-            <h2 class="my-4">No results to display</h2>
+            <div class="mt-6">
+                <h2 class="text-xl font-semibold text-gray-600">No results to display</h2>
+            </div>
         {% endif %}
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script sr
+</body>
+</html>
